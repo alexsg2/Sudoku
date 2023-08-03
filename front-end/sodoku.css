@@ -104,3 +104,31 @@ hr {
     font-size: 18px;
     color: #999;
 }
+
+/* Apply flexbox to the timer container to align items horizontally */
+#timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the items horizontally */
+}
+
+#timer {
+    /* Add some margin to separate the timer from the pause button */
+    margin-right: 10px;
+}
+  
+.pause-button {
+    display:flex;
+    justify-content: center;
+    width: 10px;
+}
+
+.pause-button-icon {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
