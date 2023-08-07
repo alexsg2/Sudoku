@@ -12,8 +12,8 @@
 <body>
     <h1>Sudoku Game</h1>
     <hr>
-    <div id="timer-container">
-        <div id="timer">Time: 0:00</div>
+    <div id="settings-container">
+        <div id="timer">0:00</div>
         <div id="pause-button" class="pause-button" onclick="toggleTimer()">
             <button id="playPauseButton" class="pause-button-icon">
                 <ion-icon name="pause-outline"></ion-icon>
@@ -25,7 +25,8 @@
     <div id="digits"></div>
     <div id="victory-box" class="victory-box">
         <span class="close-button" onclick="closeVictoryBox()">&times;</span>
-        <h2>Sudoku Champion! 🏆🎉</h2>
+        <h2>🏆 Congrats! 🏆</h2>
+        <p id="victory-message"></p>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

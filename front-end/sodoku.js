@@ -37,7 +37,7 @@ window.onload = function () {
 };
 
 function startTimer() {
-    document.getElementById("timer").innerText = "Time: 0:00";
+    document.getElementById("timer").innerText = "0:00";
     timerInterval = setInterval(updateTimer, 1000);
 }
 
@@ -45,7 +45,7 @@ function updateTimer() {
     if (!gameWon) {
         seconds++;
         const timeDisplay = formatTime(seconds);
-        document.getElementById("timer").innerText = "Time: " + timeDisplay;
+        document.getElementById("timer").innerText = timeDisplay;
     }
 }
 
@@ -157,14 +157,20 @@ function displayFinalTime() {
     // Update the victory box to display the final time
     const victoryBox = document.getElementById("victory-box");
     victoryBox.style.display = "block";
+
     const timeDisplay = document.createElement("p");
-    timeDisplay.innerText = "Time taken: " + formatTime(finalTime);
+    timeDisplay.innerText = "You finished an easy puzzle with the time: " + formatTime(finalTime) + ".";
     victoryBox.appendChild(timeDisplay);
+
+    const playAnotherButton = document.createElement("button");
+    playAnotherButton.innerText = "Play Another Sudoku";
+    playAnotherButton.classList.add("rounded-button");
+    victoryBox.appendChild(playAnotherButton);
 }
   
 
 function closeVictoryBox() {
-  document.getElementById("victory-box").style.display = "none";
+    document.getElementById("victory-box").style.display = "none";
 }
 
 function toggleTimer() {

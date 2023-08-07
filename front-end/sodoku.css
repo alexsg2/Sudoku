@@ -1,27 +1,24 @@
+/* General Styles */
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
 
-hr {
-    width: 500px;
-}
-
+/* Board Styles */
 #board {
     width: 450px;
     height: 450px;
     /* background-color: coral; */
     margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 1px;
 }
 
 .tile {
     width: 48px;
     height: 48px;
     border: 1px solid lightgray;
-
-    /* Text */
     font-size: 20px;
     font-weight: bold;
     display: flex;
@@ -29,32 +26,8 @@ hr {
     align-items: center;
 }
 
-#digits {
-    width: 450px;
-    height: 50px;
-
-    /* background-color: purple; */
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.number {
-    width: 44px;
-    height: 44px;
-    border: 1px solid black;
-    margin: 2px;
-
-    /* Text */
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.number-selected {
-    background-color: gray;
+.tile-selected {
+    background-color: #FFFF00; /* You can customize the background color as desired */
 }
 
 .given-number {
@@ -69,13 +42,37 @@ hr {
     border-right: 1px solid black;
 }
 
-.tile-selected {
-    background-color: #FFFF00; /* You can customize the background color as desired */
+/* Digits Styles */
+#digits {
+    width: 450px;
+    height: 50px;
+    /* background-color: purple; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.number {
+    width: 44px;
+    height: 44px;
+    border: 1px solid black;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
+.number-selected {
+    background-color: gray;
+}
+
+/* Victory Box Styles */
 .victory-box {
     display: none; /* Hide the box by default */
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -88,14 +85,11 @@ hr {
     text-align: center;
 }
 
-/* Style for the victory message */
 .victory-box h2 {
-    color: #4caf50;
     font-size: 24px;
     margin: 10px 0;
 }
 
-/* Optional style for a close button */
 .victory-box .close-button {
     position: absolute;
     top: 5px;
@@ -105,20 +99,21 @@ hr {
     color: #999;
 }
 
-/* Apply flexbox to the timer container to align items horizontally */
-#timer-container {
+/* Settings Container Styles */
+#settings-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the items horizontally */
+    justify-content: center; 
+    margin: 20px 0; 
 }
 
 #timer {
-    /* Add some margin to separate the timer from the pause button */
-    margin-right: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 15px;
 }
-  
+
 .pause-button {
-    display:flex;
+    display: flex;
     justify-content: center;
     width: 10px;
 }
@@ -131,4 +126,20 @@ hr {
     color: black;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+/* Rounded Button Styles */
+.rounded-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 20px; /* Adjust this value to change the roundness of the button */
+    background-color: white; /* Change the background color as desired */
+    color: black; /* Change the text color as desired */
+    cursor: pointer;
+}
+
+.rounded-button:hover {
+    background-color: gray; /* Change the background color on hover */
 }
