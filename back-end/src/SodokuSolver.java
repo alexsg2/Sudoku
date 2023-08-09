@@ -8,10 +8,8 @@ public class SodokuSolver {
     private static final int MEDIUMMODE = 27;
     private static final int HARDMODE = 23;
 
-
-
     public static void main(String[] args) throws Exception {
-        int[][] exampleSudokuBoard = createBoard(HARDMODE);
+        int[][] exampleSudokuBoard = createBoard(MEDIUMMODE);
 
         if (solveBoard(exampleSudokuBoard)) {
             System.out.println();
