@@ -1,0 +1,51 @@
+.centered-title {
+    text-align: center;
+}
+
+hr {
+    width: 600px;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    text-align: center; /* Center the buttons */
+}
+
+.easy-button {
+    background-color: #2ecc71; /* Green */
+}
+
+.medium-button {
+    background-color: #f39c12; /* Orange */
+}
+
+.hard-button {
+    background-color: #e74c3c; /* Red */
+}
+
+.rounded-button {
+    padding: 15px 100px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 100%;
+    margin: 0 10px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.rounded-button:hover {
+    opacity: 0.9;
+}
+
+.vertical-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.centered-message {
+    text-align: center;
+}

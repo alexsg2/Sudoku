@@ -1,0 +1,39 @@
+/* App.css or a separate CSS file */
+  .trophy-emoji {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+  
+  .congrats-text {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .play-again-button {  
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 20px; /* Adjust this value to change the roundness of the button */
+    background-color: white; /* Change the background color as desired */
+    color: black; /* Change the text color as desired */
+    cursor: pointer;
+  }
+  
+  .play-again-button:hover {
+    background-color: gray; /* Change the background color on hover */
+  }
+  
+  /* VictoryMessage.css */
+.victory-message {
+  position: absolute;
+  top: 275px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 30px 80px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 2; /* Ensure it's higher than the Sudoku board's z-index */
+}
