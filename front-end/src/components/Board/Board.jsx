@@ -1,67 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
-import { VictoryMessage, SudokuDifficulty } from '..'; 
-
-var initialBoard = [
-  "803004271",
-  "005210486",
-  "000000300",
-  "700000025",
-  "516780030",
-  "000000008",
-  "300520647",
-  "600800000",
-  "009007013",
-];
-
-var solution = [
-  "863954271",
-  "975213486",
-  "124678359",
-  "798346125",
-  "516782934",
-  "432195768",
-  "381529647",
-  "647831592",
-  "259467813",
-];
+import { VictoryMessage} from '..'; 
 
 
-function Board({ difficulty, timer, onGameWin, solveClick }) {
+function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
     const [numSelected, setNumSelected] = useState(null);
     const [gameWon, setGameWon] = useState(false);
+    // Use the backend data to initialize initialBoard and solution
+    const initialBoard = backendData.board.split('\n').map(row => row.split('').map(cell => cell === '0' ? cell : parseInt(cell)));
+    const solution = backendData.solution.split('\n').map(row => row.split('').map(cell => parseInt(cell)));
+
+    // Initialize board state using initialBoard
     const [board, setBoard] = useState([...initialBoard]);
 
+
     useEffect(() => {
-      function solvePuzzle() {
-        if (gameWon) {
-          return;
-        }
+        function solvePuzzle() {
+          if (gameWon) {
+            return;
+          }
       
-        const newBoard = [...board];
+          const newBoard = JSON.parse(JSON.stringify(board)); // Create a deep copy of the board
       
-        for (let r = 0; r < 9; r++) {
-          for (let c = 0; c < 9; c++) {
-            if (newBoard[r][c] === '0' || newBoard[r][c] !== solution[r][c]) {
-              newBoard[r] = newBoard[r].substr(0, c) + solution[r][c] + newBoard[r].substr(c + 1);
+          for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+              if (newBoard[r][c] === 0 || newBoard[r][c] !== solution[r][c]) {
+                newBoard[r][c] = solution[r][c];
       
-              // Add a class to mark the digit as red for cells filled by solvePuzzle
-              if (!initialBoard[r][c] !== '0') {
-                document.getElementById(`${r}-${c}`).classList.add('solved-red');
+                // Add a class to mark the digit as red for cells filled by solvePuzzle
+                if (initialBoard[r][c] !== 0) {
+                  document.getElementById(`${r}-${c}`).classList.add('solved-red');
+                }
               }
             }
           }
+      
+          setBoard(newBoard);
+          setGameWon(true);
+          onGameWin(true);
         }
       
-        setBoard(newBoard);
-        setGameWon(true);
-        onGameWin(true);
-      }          
-  
-      if (solveClick) {
-        solvePuzzle(); // Call the solvePuzzle function
-      }
-    }, [solveClick, gameWon, board, onGameWin]);
+        if (solveClick) {
+          solvePuzzle();
+        }
+      }, [solveClick, gameWon, board, onGameWin, solution, initialBoard]);
+      
 
     function setGame() {
       const boardElements = [];
@@ -122,38 +105,34 @@ function Board({ difficulty, timer, onGameWin, solveClick }) {
 }
 
 
-  function selectTile(row, col) {
-    if (gameWon) {
+function selectTile(row, col) {
+  if (gameWon) {
       return;
-    }
-  
-    const isGivenNumber = initialBoard[row][col] !== '0';
-  
-    if (numSelected !== null && !isGivenNumber) {
+  }
+
+  const isGivenNumber = initialBoard[row][col] !== '0';
+
+  if (numSelected !== null && !isGivenNumber) {
       const newBoard = [...board];
-      if (numSelected === ' ') {
-        newBoard[row] = newBoard[row].substr(0, col) + '0' + newBoard[row].substr(col + 1);
-      } else {
-        newBoard[row] = newBoard[row].substr(0, col) + numSelected.toString() + newBoard[row].substr(col + 1);
-      }
-  
+      newBoard[row][col] = numSelected === ' ' ? 0 : numSelected;
+
       if (isBoardSolved(newBoard)) {
-        setGameWon(true);
-        onGameWin(true);
+          setGameWon(true);
+          onGameWin(true);
       }
-  
+
       setBoard(newBoard);
-    } else if (!isGivenNumber && numSelected !== null) {
+  } else if (!isGivenNumber && numSelected !== null) {
       const newBoard = [...board];
-      newBoard[row] = newBoard[row].substr(0, col) + numSelected.toString() + newBoard[row].substr(col + 1);
-  
+      newBoard[row][col] = numSelected === ' ' ? 0 : numSelected;
+
       if (isBoardSolved(newBoard)) {
-        setGameWon(true);
+          setGameWon(true);
       }
-  
+
       setBoard(newBoard);
-    }
-  }          
+  }
+}   
 
   function isBoardSolved(testBoard) {
     for (let r = 0; r < 9; r++) {
@@ -184,11 +163,14 @@ function Board({ difficulty, timer, onGameWin, solveClick }) {
                   </div>   
                 ))}
             </div>
+
+            {/* <div> {initialBoard} </div>
+            <div> {solution} </div> */}
+
+
             {gameWon ? (
               <VictoryMessage difficulty={difficulty} time={timer} onPlayAgain={() => window.location.reload()}  />
             ) : null} 
-
-            <SudokuDifficulty difficulty={difficulty} />
         </div>
     );
 }
