@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Board.css';
 import { VictoryMessage, SudokuDifficulty } from '..'; 
 
-const initialBoard = [
+var initialBoard = [
   "803004271",
   "005210486",
   "000000300",
@@ -14,57 +14,89 @@ const initialBoard = [
   "009007013",
 ];
 
-const solution = [
-  "803004271",
-  "005210486",
-  "000000300",
-  "700000025",
-  "516780030",
-  "000000008",
-  "300520647",
-  "600800000",
-  "009007813",
+var solution = [
+  "863954271",
+  "975213486",
+  "124678359",
+  "798346125",
+  "516782934",
+  "432195768",
+  "381529647",
+  "647831592",
+  "259467813",
 ];
 
-function Board({ difficulty, timer, onGameWin }) {
+
+function Board({ difficulty, timer, onGameWin, solveClick }) {
     const [numSelected, setNumSelected] = useState(null);
     const [gameWon, setGameWon] = useState(false);
     const [board, setBoard] = useState([...initialBoard]);
 
+    useEffect(() => {
+      function solvePuzzle() {
+        if (gameWon) {
+          return;
+        }
+      
+        const newBoard = [...board];
+      
+        for (let r = 0; r < 9; r++) {
+          for (let c = 0; c < 9; c++) {
+            if (newBoard[r][c] === '0' || newBoard[r][c] !== solution[r][c]) {
+              newBoard[r] = newBoard[r].substr(0, c) + solution[r][c] + newBoard[r].substr(c + 1);
+      
+              // Add a class to mark the digit as red for cells filled by solvePuzzle
+              if (!initialBoard[r][c] !== '0') {
+                document.getElementById(`${r}-${c}`).classList.add('solved-red');
+              }
+            }
+          }
+        }
+      
+        setBoard(newBoard);
+        setGameWon(true);
+        onGameWin(true);
+      }          
+  
+      if (solveClick) {
+        solvePuzzle(); // Call the solvePuzzle function
+      }
+    }, [solveClick, gameWon, board, onGameWin]);
+
     function setGame() {
       const boardElements = [];
-  
+    
       for (let r = 0; r < 9; r++) {
-          for (let c = 0; c < 9; c++) {
-              const tileId = `${r}-${c}`;
-              const cellValue = board[r][c];
-              const isGivenNumber = initialBoard[r][c] !== '0'; // Use initialBoard here
-  
-              const tileClass = `tile ${
-                  isGivenNumber ? 'given-number' : '' 
-              } ${
-                  r === 2 || r === 5 ? 'horizontal_line' : ''
-              } ${
-                  c === 2 || c === 5 ? 'vertical_line' : ''
-              } ${
-                  numSelected !== null && r === numSelected[0] && c === numSelected[1] ? 'number-selected' : ''
-              }`; // Add this part for number selection
-  
-              boardElements.push(
-                  <div
-                      key={tileId}
-                      id={tileId}
-                      className={tileClass}
-                      onClick={() => selectTile(r, c)}
-                  >
-                      {cellValue !== '0' ? cellValue : ''}
-                  </div>
-              );
-          }
+        for (let c = 0; c < 9; c++) {
+          const tileId = `${r}-${c}`;
+          const cellValue = board[r][c];
+          const isGivenNumber = initialBoard[r][c] !== '0'; // Use initialBoard here
+    
+          const tileClass = `tile ${
+            isGivenNumber ? 'given-number' : ''
+          } ${
+            r === 2 || r === 5 ? 'horizontal_line' : ''
+          } ${
+            c === 2 || c === 5 ? 'vertical_line' : ''
+          } ${
+            numSelected !== null && r === numSelected[0] && c === numSelected[1] ? 'number-selected' : ''
+          }`;
+    
+          boardElements.push(
+            <div
+              key={tileId}
+              id={tileId}
+              className={tileClass}
+              onClick={() => selectTile(r, c)}
+            >
+              {cellValue !== '0' ? cellValue : ''}
+            </div>
+          );
+        }
       }
-  
+    
       return boardElements;
-  }  
+    }    
 
   function selectNumber(number) {
     if (gameWon) {
@@ -136,20 +168,6 @@ function Board({ difficulty, timer, onGameWin }) {
     }
     return true;
   }
-  
-  function solvePuzzle() {
-    if (gameWon) {
-        return;
-    }
-
-    // Create a deep copy of the solution
-    const solvedBoard = JSON.parse(JSON.stringify(solution));
-    setBoard(solvedBoard);
-    setGameWon(true);
-    onGameWin(true);
-  }
-
-
 
     return (
         <div>

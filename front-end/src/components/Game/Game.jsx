@@ -4,7 +4,8 @@ import { Board, Menu } from '..';
 const Game = ({ difficulty }) => {
   const [time, setTime] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [gameWon, setGameWon] = useState(false); // New state for game win status
+  const [gameWon, setGameWon] = useState(false);
+  const [solveClick, setSolveClick] = useState(false); // New state for the solve button click
 
   useEffect(() => {
     let interval;
@@ -49,18 +50,40 @@ const Game = ({ difficulty }) => {
     setIsPaused(true); // Pause the timer when the game is won
   };
 
+  const handleSolve = () => {
+    setSolveClick(true);
+  };
+
+  const handleSolvePuzzle = () => {
+    if (solveClick) {
+      setSolveClick(false);
+    }
+  };
+  
+
   return (
     <div>
-        <h1 className="centered-title">Sudoku Game</h1>
-        <hr />
-        <Menu
-          difficulty={difficulty}
-          formattedTime={formatTime(time)}
-          isPaused={isPaused}
-          onTogglePause={handlePauseToggle}
-          gameWon={gameWon}
-        />
-    <Board difficulty={difficulty} timer={formatTime(time)} onGameWin={handleGameWin} />
+      <h1 className="centered-title">Sudoku Game</h1>
+      <hr />
+      <Menu
+        difficulty={difficulty}
+        formattedTime={formatTime(time)}
+        isPaused={isPaused}
+        onTogglePause={handlePauseToggle}
+        gameWon={gameWon}
+        onSolve={handleSolve}
+        solveClick={solveClick}
+      />
+      <Board
+        difficulty={difficulty}
+        timer={formatTime(time)}
+        onGameWin={handleGameWin}
+        solveClick={solveClick}
+        solvePuzzle={handleSolvePuzzle} // Pass the solvePuzzle function to the Board component
+      />
+      <div>
+        Solve Button Clicked: {solveClick ? 'Yes' : 'No'}
+      </div>
     </div>
   );
 };
