@@ -137,6 +137,19 @@ function Board({ difficulty, timer, onGameWin }) {
     return true;
   }
   
+  function solvePuzzle() {
+    if (gameWon) {
+        return;
+    }
+
+    // Create a deep copy of the solution
+    const solvedBoard = JSON.parse(JSON.stringify(solution));
+    setBoard(solvedBoard);
+    setGameWon(true);
+    onGameWin(true);
+  }
+
+
 
     return (
         <div>
@@ -154,7 +167,7 @@ function Board({ difficulty, timer, onGameWin }) {
                 ))}
             </div>
             {gameWon ? (
-            <VictoryMessage time={ timer } />
+            <VictoryMessage difficulty={difficulty} time={timer} onPlayAgain={() => window.location.reload()} />
             ) : null} 
 
             <SudokuDifficulty difficulty={difficulty} />

@@ -54,10 +54,11 @@ const Game = ({ difficulty }) => {
         <h1 className="centered-title">Sudoku Game</h1>
         <hr />
         <Menu
-            difficulty={difficulty}
-            formattedTime={formatTime(time)}
-            isPaused={isPaused}
-            onTogglePause={handlePauseToggle}
+          difficulty={difficulty}
+          formattedTime={formatTime(time)}
+          isPaused={isPaused}
+          onTogglePause={handlePauseToggle}
+          gameWon={gameWon}
         />
     <Board difficulty={difficulty} timer={formatTime(time)} onGameWin={handleGameWin} />
     </div>

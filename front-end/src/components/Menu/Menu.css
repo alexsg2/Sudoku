@@ -28,6 +28,14 @@
     cursor: pointer; 
   }
 
+  .static-button {
+    border: none;
+    background: none; 
+    padding: 0; 
+    opacity: 0.5;
+    cursor: not-allowed; 
+  }
+
   .solve-button {
     align-items: center;
     padding: 5px 10px;
