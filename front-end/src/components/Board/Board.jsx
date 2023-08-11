@@ -167,7 +167,7 @@ function Board({ difficulty, timer, onGameWin }) {
                 ))}
             </div>
             {gameWon ? (
-            <VictoryMessage difficulty={difficulty} time={timer} onPlayAgain={() => window.location.reload()} />
+              <VictoryMessage difficulty={difficulty} time={timer} onPlayAgain={() => window.location.reload()}  />
             ) : null} 
 
             <SudokuDifficulty difficulty={difficulty} />

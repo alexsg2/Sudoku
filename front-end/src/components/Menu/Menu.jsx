@@ -5,6 +5,7 @@ import "./Menu.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faCheck } from '@fortawesome/free-solid-svg-icons';
 
+
 const Menu = ({ difficulty, formattedTime, isPaused, onTogglePause, onSolve, gameWon }) => {
   return (
     <div className="menu">
