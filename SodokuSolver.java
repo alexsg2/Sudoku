@@ -1,28 +1,24 @@
 import java.util.Arrays;
 import java.util.Random;
 
-/*
- * Sodoku Solver:
+/**
+ * Sudoku Solver:
  * 
- * This is 
+ * This Java implementation serves as the foundation for my JavaScript backend. 
+ * I chose Java initially because I was more familiar with the framework. 
+ * Writing the solver in Java allowed me to later apply the same logic to my server.js file.
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
-*/
+ */
 
 public class SodokuSolver {
 
+    // Board and Difficulty Set Up
     private static final int GRID_SIZE = 9;
     private static final int EASYMODE = 38;
     private static final int MEDIUMMODE = 27;
     private static final int HARDMODE = 23;
 
+    // Running a Example Case
     public static void main(String[] args) throws Exception {
         int[][] exampleSudokuBoard = createBoard(MEDIUMMODE);
 
@@ -36,13 +32,20 @@ public class SodokuSolver {
         printBoard(exampleSudokuBoard);
     }
 
+    /**
+     * Creates a randomly generated board with a specified number of filled cells.
+     * 
+     * @param numFilledCells The number of cells to be filled initially.
+     * @return The generated Sudoku board.
+     */
     private static int[][] createBoard(int numFilledCells) {
-        int[][] board = null; // Initialize with null outside the loop
+        int[][] board = null;
         boolean solved = false;
         Random random = new Random();
     
         while (!solved) {
-            board = new int[GRID_SIZE][GRID_SIZE]; // Initialize with a new board on each iteration
+            // Initialize with a new board on each iteration
+            board = new int[GRID_SIZE][GRID_SIZE]; 
     
             // Fill the board with 0 initially (empty cells)
             for (int i = 0; i < GRID_SIZE; i++) {
@@ -81,6 +84,12 @@ public class SodokuSolver {
         return board;
     }     
     
+     /**
+     * Creates a randomly generated board with a specified number of filled cells.
+     * 
+     * @param numFilledCells The number of cells to be filled initially.
+     * @return The generated Sudoku board.
+     */
     private static void printBoard(int[][] board) {
         for (int row = 0; row < GRID_SIZE; row++)
         {
@@ -100,6 +109,14 @@ public class SodokuSolver {
         }
     }
 
+    /**
+     * Checks whether a given number is present in the same row.
+     * 
+     * @param board The Sudoku board.
+     * @param chosenNumber The number to be checked.
+     * @param row The row to be checked.
+     * @return True if the number is present in the row, false otherwise.
+     */
     private static boolean numberCheckerRow(int [][] board, int choosen_number, int row)
     {
         for (int i = 0; i < GRID_SIZE; i++) {
@@ -111,6 +128,14 @@ public class SodokuSolver {
         return false;
     }
 
+    /**
+     * Checks whether a given number is present in the same column.
+     * 
+     * @param board The Sudoku board.
+     * @param chosenNumber The number to be checked.
+     * @param column The column to be checked.
+     * @return True if the number is present in the column, false otherwise.
+     */
     private static boolean numberCheckerColumn(int [][] board, int choosen_number, int column)
     {
         for (int i = 0; i < GRID_SIZE; i++) {
@@ -122,6 +147,15 @@ public class SodokuSolver {
         return false;
     }
 
+     /**
+     * Checks whether a given number is present in the same 3x3 box.
+     * 
+     * @param board The Sudoku board.
+     * @param chosenNumber The number to be checked.
+     * @param row The row of the cell.
+     * @param column The column of the cell.
+     * @return True if the number is present in the box, false otherwise.
+     */
     private static boolean numberCheckerBox(int [][] board, int choosen_number, int row, int column)
     {
         int boxrow = row - row % 3;
@@ -141,6 +175,16 @@ public class SodokuSolver {
         return false;
     }
 
+    /**
+     * Checks whether a given number can be legally placed at a specific cell.
+     * Does this by checking each classes check to ensure its correct.
+     * 
+     * @param board The Sudoku board.
+     * @param chosenNumber The number to be placed.
+     * @param row The row of the cell.
+     * @param column The column of the cell.
+     * @return True if the number can be placed at the cell, false otherwise.
+     */
     private static boolean validLocation(int [][] board, int choosen_number, int row, int column)
     {
         return !numberCheckerRow(board, choosen_number, row) 
@@ -148,34 +192,47 @@ public class SodokuSolver {
         && !numberCheckerBox(board, choosen_number, row, column);
     }
 
+    /**
+     * Solves the Sudoku puzzle using a backtracking algorithm.
+     * 
+     * @param board The Sudoku board to be solved.
+     * @return True if a solution is found, false otherwise.
+     */
     private static boolean solveBoard(int [][] board)
     {
         for (int row = 0; row < GRID_SIZE; row++)
         {
             for (int column = 0; column < GRID_SIZE; column++)
             {
-                /* If the space is blank (0) */
+                // Check if the cell is empty (contains 0)
                 if (board[row][column] == 0) {
+                    // Try placing numbers 1 to GRID_SIZE in the empty cell
                     for (int number_attempt = 1; number_attempt <= GRID_SIZE; number_attempt++)
                     {
+                        // Check if the current number can be placed in the cell
                         if (validLocation(board, number_attempt, row, column))
                         {
+                            // Place the number in the cell
                             board [row] [column] = number_attempt;
 
+                             // Recursively solve the board with the new number placement
                             if (solveBoard(board))
                             {
                                 return true;
                             }
                             else
                             {
+                                // If the current number placement leads to a dead end, backtrack
                                 board[row][column] = 0;
                             }
                         }
                     }
+                    // No valid number can be placed in this cell
                     return false;
                 }
             }
         }
+        // All cells are filled, puzzle solved
         return true;
     }
 }
