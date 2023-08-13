@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
 import { Easy, Medium, Hard, Home } from './components';
-import './App.css';
-
 
 /*
   Setting Up Routing Between Each Difficulty Modes:
