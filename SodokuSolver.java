@@ -1,6 +1,21 @@
 import java.util.Arrays;
 import java.util.Random;
 
+/*
+ * Sodoku Solver:
+ * 
+ * This is 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+*/
+
 public class SodokuSolver {
 
     private static final int GRID_SIZE = 9;

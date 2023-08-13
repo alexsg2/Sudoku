@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 
 const GRID_SIZE = 9;
-const EASYMODE = 38;
-const MEDIUMMODE = 32;
-const HARDMODE = 21;
+const EASYMODE = 36;
+const MEDIUMMODE = 30;
+const HARDMODE = 24;
 
 function createBoard(numFilledCells) {
     let board = new Array(GRID_SIZE).fill(null).map(() => new Array(GRID_SIZE).fill(0));

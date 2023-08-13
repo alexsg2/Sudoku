@@ -4,84 +4,85 @@ import { VictoryMessage} from '..';
 
 
 function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
-    const [numSelected, setNumSelected] = useState(null);
-    const [gameWon, setGameWon] = useState(false);
-    // Use the backend data to initialize initialBoard and solution
-    const initialBoard = backendData.board.split('\n').map(row => row.split('').map(cell => cell === '0' ? cell : parseInt(cell)));
-    const solution = backendData.solution.split('\n').map(row => row.split('').map(cell => parseInt(cell)));
+  const [numSelected, setNumSelected] = useState(null);
+  const [gameWon, setGameWon] = useState(false);
+  // Use the backend data to initialize initialBoard and solution
+  const initialBoard = backendData.board.split('\n').map(row => row.split('').map(cell => cell === '0' ? cell : parseInt(cell)));
+  const solution = backendData.solution.split('\n').map(row => row.split('').map(cell => parseInt(cell)));
 
-    // Initialize board state using initialBoard
-    const [board, setBoard] = useState([...initialBoard]);
+  // Initialize board state using initialBoard
+  const [board, setBoard] = useState([...initialBoard]);
 
 
-    useEffect(() => {
-        function solvePuzzle() {
-          if (gameWon) {
-            return;
+  useEffect(() => {
+    function solvePuzzle() {
+      if (gameWon) {
+        return;
+      }
+    
+      const newBoard = JSON.parse(JSON.stringify(board));
+  
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          console.log(`Cell [${r}][${c}] is correct. Expected: ${solution[r][c]}, Actual: ${newBoard[r][c]}`);
+          if (newBoard[r][c] !== solution[r][c]) {
+            console.log(`Different`);
+            document.getElementById(`${r}-${c}`).classList.add('solved-red');
+            newBoard[r][c] = solution[r][c];
           }
-      
-          const newBoard = JSON.parse(JSON.stringify(board)); // Create a deep copy of the board
-      
-          for (let r = 0; r < 9; r++) {
-            for (let c = 0; c < 9; c++) {
-              if (newBoard[r][c] === 0 || newBoard[r][c] !== solution[r][c]) {
-                newBoard[r][c] = solution[r][c];
-      
-                // Add a class to mark the digit as red for cells filled by solvePuzzle
-                if (initialBoard[r][c] !== 0) {
-                  document.getElementById(`${r}-${c}`).classList.add('solved-red');
-                }
-              }
-            }
-          }
-      
-          setBoard(newBoard);
-          setGameWon(true);
-          onGameWin(true);
         }
-      
-        if (solveClick) {
-          solvePuzzle();
-        }
-      }, [solveClick, gameWon, board, onGameWin, solution, initialBoard]);
+      }
+  
+      setBoard(newBoard);
+      setGameWon(true);
+      onGameWin(true);
+    }
+  
+    if (solveClick) {
+      solvePuzzle();
+    }
+  }, [solveClick, gameWon, board, onGameWin, solution, initialBoard]);         
       
 
     function setGame() {
-      const boardElements = [];
-    
-      for (let r = 0; r < 9; r++) {
-        for (let c = 0; c < 9; c++) {
-          const tileId = `${r}-${c}`;
-          const cellValue = board[r][c];
-          const isGivenNumber = initialBoard[r][c] !== '0'; // Use initialBoard here
-    
-          const tileClass = `tile ${
-            isGivenNumber ? 'given-number' : ''
-          } ${
-            r === 2 || r === 5 ? 'horizontal_line' : ''
-          } ${
-            c === 2 || c === 5 ? 'vertical_line' : ''
-          } ${
-            numSelected !== null && r === numSelected[0] && c === numSelected[1] ? 'number-selected' : ''
-          }`;
-    
-          boardElements.push(
-            <div
-              key={tileId}
-              id={tileId}
-              className={tileClass}
-              onClick={() => selectTile(r, c)}
-            >
-              {cellValue !== '0' ? cellValue : ''}
-            </div>
-          );
+        const boardElements = [];
+      
+        for (let r = 0; r < 9; r++) {
+          for (let c = 0; c < 9; c++) {
+            const tileId = `${r}-${c}`;
+            const cellValue = board[r][c];
+            const isGivenNumber = initialBoard[r][c] !== '0';
+            const isIncorrect = cellValue !== solution[r][c] && cellValue !== '0';
+      
+            const tileClass = `tile ${
+              isGivenNumber ? 'given-number' : ''
+            } ${
+              r === 2 || r === 5 ? 'horizontal_line' : ''
+            } ${
+              c === 2 || c === 5 ? 'vertical_line' : ''
+            } ${
+              numSelected !== null && r === numSelected[0] && c === numSelected[1] ? 'number-selected' : ''
+            } ${
+              isIncorrect ? 'incorrect' : '' // Add this class for incorrect cells
+            }`;
+      
+            boardElements.push(
+              <div
+                key={tileId}
+                id={tileId}
+                className={tileClass}
+                onClick={() => selectTile(r, c)}
+              >
+                {cellValue !== '0' ? cellValue : ''}
+              </div>
+            );
+          }
         }
-      }
-    
-      return boardElements;
-    }    
+      
+        return boardElements;
+  }      
 
-  function selectNumber(number) {
+function selectNumber(number) {
     if (gameWon) {
         // Clear selected number and its highlight
         if (numSelected !== null) {
@@ -104,35 +105,42 @@ function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
     }
 }
 
-
 function selectTile(row, col) {
-  if (gameWon) {
-      return;
-  }
+    if (gameWon) {
+        return;
+    }
 
-  const isGivenNumber = initialBoard[row][col] !== '0';
+    const isGivenNumber = typeof initialBoard[row][col] === 'number';
 
-  if (numSelected !== null && !isGivenNumber) {
-      const newBoard = [...board];
-      newBoard[row][col] = numSelected === ' ' ? 0 : numSelected;
+    if (numSelected !== null && !isGivenNumber) {
+        const newBoard = [...board];
+        newBoard[row][col] = numSelected === 0 ? " " : numSelected;
 
-      if (isBoardSolved(newBoard)) {
-          setGameWon(true);
-          onGameWin(true);
-      }
+        setBoard(newBoard);
 
-      setBoard(newBoard);
-  } else if (!isGivenNumber && numSelected !== null) {
-      const newBoard = [...board];
-      newBoard[row][col] = numSelected === ' ' ? 0 : numSelected;
+        console.log("Before isBoardSolved:", JSON.stringify(newBoard)); // Debugging line
+        console.log("solution:", JSON.stringify(solution)); // Debugging line
 
-      if (isBoardSolved(newBoard)) {
-          setGameWon(true);
-      }
+        if (isBoardSolved(newBoard)) {
+            setGameWon(true);
+            onGameWin(true);
+        }
 
-      setBoard(newBoard);
-  }
-}   
+    } else if (!isGivenNumber && numSelected !== null) {
+        const newBoard = [...board];
+        newBoard[row][col] = numSelected === 0 ? " " : numSelected;
+
+        console.log("Before isBoardSolved:", JSON.stringify(newBoard)); // Debugging line
+        console.log("solution:", JSON.stringify(solution)); // Debugging line
+
+        setBoard(newBoard);
+
+        if (isBoardSolved(newBoard)) {
+            setGameWon(true);
+            onGameWin(true);
+        }
+    }
+}
 
   function isBoardSolved(testBoard) {
     for (let r = 0; r < 9; r++) {
@@ -164,9 +172,9 @@ function selectTile(row, col) {
                 ))}
             </div>
 
-            {/* <div> {initialBoard} </div>
-            <div> {solution} </div> */}
-
+            <div>
+              <pre>{solution.map(row => row.join(' ')).join('\n')}</pre>
+            </div>
 
             {gameWon ? (
               <VictoryMessage difficulty={difficulty} time={timer} onPlayAgain={() => window.location.reload()}  />
