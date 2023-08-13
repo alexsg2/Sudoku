@@ -11,8 +11,9 @@ const Menu = ({ difficulty, formattedTime, isPaused, onTogglePause, onSolve, gam
     <div className="menu">
       <Link to="/" className="back-button">&lt; Back</Link>
 
+      {/*  Checks if Game has been won */}
       {gameWon ? (
-        // Game is Won
+        // Display when the game is won
         <div className="timer">
           <p>{formattedTime}</p>
           <button onClick={onTogglePause} className="static-button">
@@ -20,8 +21,7 @@ const Menu = ({ difficulty, formattedTime, isPaused, onTogglePause, onSolve, gam
           </button>
         </div>
       ) : (
-      
-        // On going game
+        // Display during an ongoing game
         <div className="timer">
           <p>{formattedTime}</p>
           <button onClick={onTogglePause} className="pause-button">
@@ -30,10 +30,13 @@ const Menu = ({ difficulty, formattedTime, isPaused, onTogglePause, onSolve, gam
         </div>
       )}
 
+
+      {/* Button to solve the puzzle, disabled when the game is won */}
       <button onClick={onSolve} className="solve-button" disabled={gameWon}>
         Solve <span className="solve-icon"><FontAwesomeIcon icon={faCheck} /></span>
       </button>
 
+      {/* Display the game difficulty */}
       <p>{difficulty}</p>
     </div>
   );

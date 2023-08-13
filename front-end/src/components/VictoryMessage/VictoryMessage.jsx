@@ -14,7 +14,7 @@ const VictoryMessage = ({ difficulty, time, onPlayAgain }) => {
   // Render the victory message only if it's open
   return isVictoryOpen ? (
     <div className="victory-message">
-      <div className="close-button" onClick={closeVictoryMessage}> {/* Added click event */}
+      <div className="close-button" onClick={closeVictoryMessage}>
         <FontAwesomeIcon icon={faTimes} />
       </div>
       <div className="trophy-emoji">🏆</div>
