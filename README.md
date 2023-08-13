@@ -66,7 +66,7 @@ Now comes the exciting part – putting your skills to the test. Engage with the
 
 4. **Clone the Repository**: Copy and paste this command into the terminal and press Enter. This will download the application to your computer.
 
-        git clone https://github.com/username/repository.git
+        git clone https://github.com/alexsg2/Sodoku.git
 
 ### 2. Set Up and Run the Application
 
