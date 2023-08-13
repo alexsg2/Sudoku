@@ -35,6 +35,9 @@ const Menu = ({ difficulty, formattedTime, isPaused, onTogglePause, onSolve, gam
       <button onClick={onSolve} className="solve-button" disabled={gameWon}>
         Solve <span className="solve-icon"><FontAwesomeIcon icon={faCheck} /></span>
       </button>
+      <button className="refresh-button" onClick={() => window.location.reload()}>
+        &#x21BB;
+      </button>
 
       {/* Display the game difficulty */}
       <p>{difficulty}</p>

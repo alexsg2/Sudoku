@@ -43,6 +43,7 @@ As you begin, you'll have several options available:
 - A timer to keep track of your progress which can also be paused.
 - A back button that allows you to return to the difficulty selection screen.
 - A solve button, available at any point during gameplay, which not only solves the puzzle but also highlights any overlooked elements.
+- A refresh button, reloading a new puzzle for you at any time.
 - The game board where the action takes place.
 - A bottom bar that provides easy access to each individual digit, as well as the difficulty settings.
 
@@ -137,8 +138,11 @@ Explore the array of current features and exciting additions that await in this 
 - [x] Pause Functionality
 - [x] Solve Button Functionality 
 - [x] Another Game Option
+- [x] Refresh Board Option
+
 
 ### Upcoming Additions
 
 - [ ] Pause Screen
-- [ ] Refresh Board Option
+- [ ] Clear Full Board Option
+

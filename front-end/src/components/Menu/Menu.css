@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 435px; 
+    width: 480px; 
     margin: 20px auto;
   }
   
@@ -54,5 +54,21 @@
   
   .solve-icon {
     margin-left: 5px;
+  }
+
+  .refresh-button {
+    width: 30px; /* Adjust the width and height to make the button as big as you want */
+    height: 30px;
+    border-radius: 50%; /* Makes the button round */
+    background-color: gray; /* Button background color */
+    color: white; /* Text color */
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .refresh-button:hover {
+    opacity: 0.9;
   }
   
