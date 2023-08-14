@@ -2,7 +2,8 @@
 
 Welcome to my Sudoku Puzzle Game! This recreation of the famous game offers a simple and easy-to-learn experience for players of all levels.
 
-### IMAGE HERE
+![Game Example](./Readme_photos/Game.png)
+
 
 For those new to Sudoku or seeking a refresher, our comprehensive guide, [Sudoku Rules for Complete Beginners](https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/#:~:text=Sudoku%20is%20played%20on%20a%20grid,the%20row%2C%20column%20or%20square.), provides a step-by-step tutorial on the game's rules and mechanics.
 
@@ -36,7 +37,7 @@ Welcome to the tutorial on how to play this game. To get started with running th
 
 Once you've launched the game, you'll be presented with a difficulty screen where you can select the mode you'd like to play. When clicked it will generate a random board based off your difficulty.
 
-### IMAGE HERE
+![DifficultyScreen](./Readme_photos/DifficultyScreen.png)
 
 As you begin, you'll have several options available:
 
@@ -47,11 +48,11 @@ As you begin, you'll have several options available:
 - The game board where the action takes place.
 - A bottom bar that provides easy access to each individual digit, as well as the difficulty settings.
 
-### IMAGE HERE
+![GameScreen](./Readme_photos/Game.png)
 
 Now comes the exciting part – putting your skills to the test. Engage with the puzzle until you successfully complete the Sudoku challenge. Your reward? A resounding victory message and a detailed breakdown of your completion time.
 
-### IMAGE HERE
+![VictoryScreen](./Readme_photos/Victory.png)
 
 ## Running the Application: Step-by-Step Guide
 

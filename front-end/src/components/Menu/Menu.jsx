@@ -36,7 +36,7 @@ const Menu = ({ difficulty, formattedTime, isPaused, onTogglePause, onSolve, gam
         Solve <span className="solve-icon"><FontAwesomeIcon icon={faCheck} /></span>
       </button>
 
-      {isPaused ? (
+      {isPaused && !gameWon? (
         <button className="refresh-button">
           &#x21BB;
         </button>

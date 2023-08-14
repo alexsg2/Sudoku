@@ -187,7 +187,7 @@ function Board({ difficulty, timer, onGameWin, solveClick, isPaused, backendData
               ))}
           </div>
 
-          {isPaused ? ( 
+          {isPaused && !gameWon ? ( 
             <PauseMessage></PauseMessage>
           ): null}
 
