@@ -139,10 +139,10 @@ Explore the array of current features and exciting additions that await in this 
 - [x] Solve Button Functionality 
 - [x] Another Game Option
 - [x] Refresh Board Option
+- [x] Pause Screen
 
 
 ### Upcoming Additions
 
-- [ ] Pause Screen
 - [ ] Clear Full Board Option
 

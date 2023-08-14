@@ -84,7 +84,10 @@
 
     // Handles solve button click
     const handleSolve = () => {
-      setSolveClick(true);
+      if (!isPaused)
+      {
+        setSolveClick(true);
+      }
     };
 
     // Handles solve puzzle action
@@ -123,6 +126,7 @@
               difficulty={difficulty}
               timer={formatTime(time)}
               onGameWin={handleGameWin}
+              isPaused={isPaused}
               solveClick={solveClick}
               solvePuzzle={handleSolvePuzzle}
               backendData={backendData}

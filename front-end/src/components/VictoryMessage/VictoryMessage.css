@@ -33,7 +33,7 @@
   background-color: #f0f0f0;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 2; /* Ensure it's higher than the Sudoku board's z-index */
+  z-index: 2;
 }
 
 .close-button {

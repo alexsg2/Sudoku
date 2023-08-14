@@ -10,7 +10,7 @@ hr {
     display: flex;
     justify-content: center;
     margin: 20px 0;
-    text-align: center; /* Center the buttons */
+    text-align: center;
 }
 
 .easy-button {
@@ -59,12 +59,12 @@ hr {
 }
 
 .welcome-header {
-    text-align: center; /* Center the text */
-    margin-top: 40px; /* Add some margin for spacing */
+    text-align: center; 
+    margin-top: 40px; 
 }
 
 .welcome-message {
-    text-align: center; /* Center the text */
-    padding: 40px; /* Add some margin for spacing */
+    text-align: center; 
+    padding: 40px; 
 }
 

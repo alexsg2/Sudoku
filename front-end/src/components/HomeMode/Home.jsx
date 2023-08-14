@@ -9,6 +9,7 @@ const Home = () => {
       <h1 className="centered-title">Sudoku Game</h1>
       <hr />
 
+      {/* Display Welcome message */}
       <h2 className='welcome-header'>  Welcome to my Sudoku game! </h2>
       <p className='welcome-message'> Prepare to challenge your mind and enjoy. Choose your preferred difficulty level before we start. </p>
 

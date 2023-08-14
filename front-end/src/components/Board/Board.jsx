@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
-import { VictoryMessage} from '..'; 
+import { PauseMessage, VictoryMessage} from '..'; 
 
 
-function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
+function Board({ difficulty, timer, onGameWin, solveClick, isPaused, backendData }) {
 
   // Use the backend data to initialize initialBoard and solution
   const initialBoard = backendData.board.split('\n').map(row => row.split('').map(cell => cell === '0' ? cell : parseInt(cell)));
@@ -16,7 +16,6 @@ function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
 
   useEffect(() => {
 
-    // Call solvePuzzle() if solveClick is true
     if (solveClick) {
       solvePuzzle();
     }
@@ -24,6 +23,7 @@ function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
     // Function to solve the puzzle when the solveClick prop changes
     function solvePuzzle() {
       if (gameWon) {
+        console.log("MADE IT")
         return;
       }
     
@@ -34,7 +34,6 @@ function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
 
           // Check if the cell is correct, highlight incorrect cells
           if (newBoard[r][c] !== solution[r][c]) {
-            console.log(`Different`);
             document.getElementById(`${r}-${c}`).classList.add('solved-red');
             newBoard[r][c] = solution[r][c];
           }
@@ -45,7 +44,7 @@ function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
       setGameWon(true);
       onGameWin(true);
     }
-  }, [solveClick, gameWon, board, onGameWin, solution, initialBoard]);         
+  }, [solveClick, gameWon, board, onGameWin, isPaused, solution, initialBoard]);         
       
   // Function to generate the game board onto the screen
   function setGame() {
@@ -90,7 +89,7 @@ function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
   // Function to handle number selection in the UI
   function selectNumber(number) {
 
-      if (gameWon) {
+      if (gameWon || isPaused) {
           // Clear selected number and its highlight if the game is already won
           if (numSelected !== null) {
               document.getElementById(numSelected.toString()).classList.remove("number-selected");
@@ -118,7 +117,7 @@ function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
 
   // Function to handle cell selection on the game board
   function selectTile(row, col) {
-    if (gameWon) {
+    if (gameWon || isPaused) {
       // Do nothing if the game is already won
       return;
     }
@@ -187,6 +186,10 @@ function Board({ difficulty, timer, onGameWin, solveClick, backendData }) {
                 </div>   
               ))}
           </div>
+
+          {isPaused ? ( 
+            <PauseMessage></PauseMessage>
+          ): null}
 
           {/* Render the 'VictoryMessage' component if the game is won */}
           {gameWon ? (

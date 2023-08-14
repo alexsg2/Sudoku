@@ -5,7 +5,8 @@ import Home from "./HomeMode/Home"; // Import the 'Home' component from the 'Hom
 import Board from "./Board/Board"; // Import the 'Board' component from the 'Board' directory
 import Menu from "./Menu/Menu"; // Import the 'Menu' component from the 'Menu' directory
 import VictoryMessage from "./VictoryMessage/VictoryMessage"; // Import the 'VictoryMessage' component from the 'VictoryMessage' directory
+import PauseMessage from "./PauseMessage/PauseMessage"; // Import the 'PauseMessage' component from the 'Game' directory
 import Game from "./Game/Game"; // Import the 'Game' component from the 'Game' directory
 
 // Exports all the components
-export { Easy, Medium, Hard, Home, Board, Menu, VictoryMessage, Game }; 
+export { Easy, Medium, Hard, Home, Board, Menu, VictoryMessage, PauseMessage, Game }; 
