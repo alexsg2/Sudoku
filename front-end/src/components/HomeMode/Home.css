@@ -48,4 +48,23 @@ hr {
 
 .centered-message {
     text-align: center;
+    padding: 25px;
 }
+
+.rounded-rectangle-border {
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.welcome-header {
+    text-align: center; /* Center the text */
+    margin-top: 40px; /* Add some margin for spacing */
+}
+
+.welcome-message {
+    text-align: center; /* Center the text */
+    padding: 40px; /* Add some margin for spacing */
+}
+
