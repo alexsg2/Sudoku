@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
 import { Easy, Medium, Hard, Home } from './components';
+import { useEffect } from 'react';
 
 /*
   Setting Up Routing Between Each Difficulty Modes:
@@ -11,6 +12,10 @@ import { Easy, Medium, Hard, Home } from './components';
 */
 
 function App() {
+  useEffect(() => {
+    document.title = "Sudoku Game";
+  }, []);
+
   return (
     <Router>
         <Routes>
