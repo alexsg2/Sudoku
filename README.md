@@ -1,6 +1,6 @@
 # Sudoku Puzzle Game - Generator and Solver
 
-Welcome to my Sudoku Puzzle Game! This recreation of the famous game offers a simple and easy-to-learn experience for players of all levels.
+Welcome to my Sudoku Puzzle Game! This recreation of the famous game Sudoku and offers a simple and easy-to-learn experience for players of all levels.
 
 ![Game Example](./Readme_photos/Game.png)
 
